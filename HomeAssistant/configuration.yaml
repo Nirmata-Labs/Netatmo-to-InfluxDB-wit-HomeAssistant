@@ -1,0 +1,66 @@
+ Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+panel_iframe:
+  router:
+    title: "InfluxDB"
+    url: "http://<IP-Adress>0:8086"
+    icon: mdi:database
+  grafana:
+    title: "Grafana"
+    url: "http://<IP-Adress>:3000"
+    icon: mdi:chart-line
+
+# InfluxDB Configuration
+influxdb:
+  host: <IP-Adress>
+  port: 8086
+  api_version: 2
+  database: home_assistant
+  token: "<Influx Access Token>"
+  organization: home 
+  ssl: false
+  verify_ssl: false
+  tags:
+    source: home_assistant
+  tags_attributes:
+    - friendly_name
+  default_measurement: units
+  ignore_attributes:
+    - icon
+  include:
+    entities:
+      - sensor.indoor_noise
+      - sensor.indoor_co2
+      - sensor.indoor_humidity
+      - sensor.indoor_pressure
+      - sensor.indoor_temperature
+      - sensor.outdoor_wind_strength
+      - sensor.outdoor_wind_direction
+      - sensor.outdoor_wind_battery_percent
+      - sensor.outdoor_rain_today
+      - sensor.outdoor_rain
+      - sensor.outdoor_rain_battery_percent
+      - sensor.outdoor_temperature
+      - sensor.outdoor_humidity
+      - sensor.outdoor_battery_percent
+    domains:
+      - sensor
+  exclude:
+    domains:
+      - automation
+
+# Logger Configuration
+logger:
+  default: info
+  logs:
+    homeassistant.components.influxdb: debug
+    custom_components.my_awesome_custom_component: debug
