@@ -12,7 +12,7 @@ scene: !include scenes.yaml
 panel_iframe:
   router:
     title: "InfluxDB"
-    url: "http://<IP-Adress>0:8086"
+    url: "http://<IP-Adress>:8086"
     icon: mdi:database
   grafana:
     title: "Grafana"
